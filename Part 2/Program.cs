@@ -64,36 +64,68 @@
     #endregion
 
     #region Q2
-  /*  public interface IAuthenticationService
+    /*  public interface IAuthenticationService
+      {
+          bool AuthenticateUser(string username, string password);
+          bool AuthorizeUser(string username, string role);
+      }
+
+
+      public class BasicAuthenticationService : IAuthenticationService
+      {
+          private string storedUsername;
+          private string storedPassword;
+          private string storedRole;
+
+          public BasicAuthenticationService(string username, string password, string role)
+          {
+              storedUsername = username;
+              storedPassword = password;
+              storedRole = role;
+          }
+
+          public bool AuthenticateUser(string username, string password)
+          {
+              return username == storedUsername && password == storedPassword;
+          }
+
+          public bool AuthorizeUser(string username, string role)
+          {
+              return username == storedUsername && role == storedRole;
+          }
+      }*/
+    #endregion
+
+    #region Q3
+    public interface INotificationService
     {
-        bool AuthenticateUser(string username, string password);
-        bool AuthorizeUser(string username, string role);
+        void SendNotification(string recipient, string message);
     }
 
-  
-    public class BasicAuthenticationService : IAuthenticationService
+    public class EmailNotificationService : INotificationService
     {
-        private string storedUsername;
-        private string storedPassword;
-        private string storedRole;
-
-        public BasicAuthenticationService(string username, string password, string role)
+        public void SendNotification(string recipient, string message)
         {
-            storedUsername = username;
-            storedPassword = password;
-            storedRole = role;
+            Console.WriteLine("Sending email to " + recipient + ": " + message);
         }
+    }
 
-        public bool AuthenticateUser(string username, string password)
+    public class SmsNotificationService : INotificationService
+    {
+        public void SendNotification(string recipient, string message)
         {
-            return username == storedUsername && password == storedPassword;
+            Console.WriteLine("Sending SMS to " + recipient + ": " + message);
         }
+    }
 
-        public bool AuthorizeUser(string username, string role)
+    public class PushNotificationService : INotificationService
+    {
+        public void SendNotification(string recipient, string message)
         {
-            return username == storedUsername && role == storedRole;
+            Console.WriteLine("Sending push notification to " + recipient + ": " + message);
         }
-    }*/
+    }
+
     #endregion
 
     class Program
@@ -112,20 +144,29 @@
                Console.WriteLine("Area: " + rectangle.Area);*/
             #endregion
             #region Q2
-          /*  IAuthenticationService authService = new BasicAuthenticationService("admin", "password", "admin");
+            /*  IAuthenticationService authService = new BasicAuthenticationService("admin", "password", "admin");
 
-            string username = "admin";
-            string password = "password";
-            string role = "admin";
+              string username = "admin";
+              string password = "password";
+              string role = "admin";
 
-            if (authService.AuthenticateUser(username, password) && authService.AuthorizeUser(username, role))
-            {
-                Console.WriteLine("User is authenticated and authorized.");
-            }
-            else
-            {
-                Console.WriteLine("User is not authenticated or authorized.");
-            }*/
+              if (authService.AuthenticateUser(username, password) && authService.AuthorizeUser(username, role))
+              {
+                  Console.WriteLine("User is authenticated and authorized.");
+              }
+              else
+              {
+                  Console.WriteLine("User is not authenticated or authorized.");
+              }*/
+            #endregion
+            #region Q3
+            INotificationService emailService = new EmailNotificationService();
+            INotificationService smsService = new SmsNotificationService();
+            INotificationService pushService = new PushNotificationService();
+
+            emailService.SendNotification("Nedal@gmail", "Email message");
+            smsService.SendNotification("01141638796", "SMS message");
+            pushService.SendNotification("1234567", "Push notification message");
             #endregion
 
         }
